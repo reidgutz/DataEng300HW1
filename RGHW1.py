@@ -69,8 +69,10 @@ skews
 for col in numerical_columns:
     plt.hist(client_data[col], bins=10)
     plt.title(col)
-    plt.show()
-
+    name = "Non-transformed hist" + col
+    plt.savefig(name)
+    plt.clf()
+    
 plt.close()
 
 # Transform columns to be more normal
@@ -82,6 +84,9 @@ for col in numerical_columns:
         transformed,lambda_value = boxcox(abs((client_data[col]+ 1)))
         plt.hist(transformed)
         plt.title(col)
+        name = "Transformed hist" + col
+        plt.savefig(name)
+        plt.clf()
         transformationdf[col] = transformed
         transformationdf[col].skew()
 plt.close()
@@ -124,6 +129,9 @@ for col in numerical_columns.columns:
         plt.boxplot(transformationdf[col])
         plt.title(col)
         plt.show()
+        name = "Boxplot of" + col + "-Removed Outliers"
+        plt.savefig(name)
+        plt.clf()
 
 
 # Plot boxplots separated by target
@@ -136,7 +144,10 @@ for col in numerical_columns.columns:
         axs[0].set_title('Boxplot 1 ' + col)
         axs[1].boxplot(transformationdf[col][transformationdf['TARGET']==0])
         axs[1].set_title('Boxplot 0 '+ col)
+        name = "Boxplot of" + col + "-Separated by Target"
         plt.show()
+        plt.savefig(name)
+        plt.clf()
 
 
 # Plot boxplots based on Education type
@@ -156,6 +167,8 @@ for col in numerical_columns.columns:
         axs[3].boxplot(transformationdf[col][transformationdf['NAME_EDUCATION_TYPE']== "Higher education"])
         axs[3].set_title("Higher education")                                     
         plt.show()
+        plt.savefig("EducationandIncome")
+        plt.clf()
 
 plt.close()
 # Bar plot based on housing type
@@ -167,7 +180,8 @@ ax.bar(counts.index, counts.values)
 ax.set_xlabel('Types')
 ax.set_ylabel('Frequency')
 plt.show()
-
+plt.savefig("BarPlotforHousingType")
+plt.clf()
 
 # Bar plot based on Housing Type and Family Status
 
@@ -180,7 +194,8 @@ ax.set_title('Housing Type Frequency by Family Status')
 ax.set_ylabel('Frequency')
 ax.legend(title = 'Family Status')
 plt.show()
-
+plt.savefig("BarPlotforHousingTypebyFamilyStatus")
+plt.clf()
 
 # Create age and age group columns
 
@@ -200,7 +215,8 @@ props.plot.bar()
 plt.xlabel("Age Group")
 plt.ylabel("Proportion")
 plt.title("Proportion of Applicants with Target = 1")
-
+plt.savefig("Proportionwithtarget1")
+plt.clf()
 
 # Plot proportion of age groups with target 1 by gender
 
@@ -210,6 +226,8 @@ props.plot.bar()
 plt.xlabel("Age Group")
 plt.ylabel("Proportion")
 plt.title("Proportion of Applicants with Target = 1")
+plt.savefig("Proportionwithtarget0")
+plt.clf()
 
 
 
