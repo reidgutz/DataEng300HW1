@@ -118,8 +118,10 @@ for col in numerical_columns.columns:
         iqr = q3 - q1
         lower_bound = q1 - 1.5 * iqr
         upper_bound = q3 + 1.5 * iqr
-        transformationdf = transformationdf[(transformationdf[col] >= lower_bound) & (transformationdf[col] <= upper_bound)]
-
+        if col != 'CNT_FAM_MEMBERS':
+            transformationdf = transformationdf[(transformationdf[col] >= lower_bound) & (transformationdf[col] <= upper_bound)]
+        else:
+            transformationdf = transformationdf[transformationdf[col] <= upper_bound]
 
 # Replot boxplots
 
